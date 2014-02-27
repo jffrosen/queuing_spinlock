@@ -8,14 +8,14 @@
    https://www.cs.rochester.edu/research/synchronization/pseudocode/timeout.html */
 
 typedef struct qnode {
-  volatile int must_wait;
-  volatile struct qnode *volatile prev;
+  volatile int locked;
+  volatile struct qnode *volatile next;
 } qnode;
 
 typedef volatile qnode qnode_t;
 typedef qnode_t *lock_queue_t;
 
 void acquire(lock_queue_t *L, qnode_t *I);
-void release(lock_queue_t lock);
+void release(lock_queue_t *L, qnode_t *I);
 
 #endif
