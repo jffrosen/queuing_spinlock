@@ -10,10 +10,11 @@
 typedef struct qnode {
   volatile int locked;
   volatile struct qnode *volatile next;
+  volatile int have_lock;
 } qnode;
 
 typedef volatile qnode qnode_t;
-typedef qnode_t *lock_queue_t;
+typedef volatile qnode_t *lock_queue_t;
 
 void acquire(lock_queue_t *L, qnode_t *I);
 void release(lock_queue_t *L, qnode_t *I);
